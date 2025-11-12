@@ -1,74 +1,57 @@
-# 🧩 Event Management API (Node.js + MongoDB)
-
-A schema-free RESTful API for managing events, built using **Node.js**, **Express**, and the **MongoDB native driver** (without Mongoose).  
-This project supports **full CRUD operations**, **image uploads**, and **pagination**.
-
----
-
-## 🚀 Features
-
-✅ **MongoDB Native Driver (No Mongoose)** — flexible, schema-free document handling.  
-✅ **Full CRUD** — Create, Read, Update, and Delete event data.  
-✅ **File Uploads (Multer)** — Upload event images and serve them statically.  
-✅ **Pagination** — Retrieve recent events via `type=latest` with `limit` and `page`.  
-✅ **Error Handling** — Proper 400 / 404 / 500 responses for all routes.  
-✅ **File Cleanup** — Automatically deletes old images when updated or deleted.  
-✅ **Environment Configurable** — All credentials stored in `.env`.
+# Event Management Api 
+  
+It is a simple Nodejs + Express + MongoDB (Native Driver) based API for handling events CRUD operations.  
+Frontend is not required and the api can be tested using Postman.  
 
 ---
 
+## Overview
 
-## ⚙️ Tech Stack
-
-| Layer | Technology |
-|--------|-------------|
-| **Runtime** | Node.js  |
-| **Framework** | Express.js |
-| **Database** | MongoDB (Native Driver) |
-| **File Uploads** | Multer |
-| **Environment Config** | dotenv |
-| **Testing** | Postman / cURL |
+The API allows user to **create**, **read**, **update** and **delete** events.  
+It also supports image upload for each event and list events by latest using pagination.  
+  
+MongoDB official library is used instead of mongoose.
 
 ---
 
-## 🧩 API Endpoints
+## Tech Used
 
-### **1️⃣ Create Event**
-**POST** `/api/v3/app/events`
+- Nodejs  
+- Express  
+- MongoDB native driver  
+- Multer (for image upload)  
+- Dotenv  
 
-Create a new event with optional image upload.
+---
 
-**Request Type:** `multipart/form-data`  
-**Fields:**
-| Field | Type | Required | Description |
-|--------|------|-----------|-------------|
-| `name` | String | ✅ Yes | Event name |
-| `tagline` | String | Optional | Tagline or subtitle |
-| `schedule` | ISO String / Timestamp | ✅ Yes | Event date/time |
-| `description` | String | Optional | Event description |
-| `moderator` | String | Optional | Event host/moderator |
-| `category` | String | Optional | Main category |
-| `sub_category` | String | Optional | Subcategory |
-| `rigor_rank` | Number | Optional | Difficulty / rank |
-| `attendees` | Array or CSV | Optional | Attendee IDs |
-| `image` | File | Optional | Event image |
+## How To Run
 
-# Create event
-curl -X POST "http://localhost:3000/api/v3/app/events" \
-  -F "name=Dev Meetup" \
-  -F "schedule=2025-12-01T18:00:00Z" \
-  -F "image=@/path/to/image.jpg"
+1. Clone the repo  
+2. install dependancy  
+3. setup .env file
 
-# Get event by ID
-curl "http://localhost:8000/api/v3/app/events?id=<event_id>"
+4. start the server  
+```
+node server.js
+```
 
-# Update event
-curl -X PUT "http://localhost:8000/api/v3/app/events/<event_id>" \
-  -F "tagline=Updated tagline" \
-  -F "image=@/path/to/new.jpg"
 
-# Delete event
-curl -X DELETE "http://localhost:3000/api/v3/app/events/<event_id>"
+---
+
+## Api Endpoints
+
+| Method | Endpoint | Description |
+|---------|-----------|-------------|
+| **GET** | `/api/v3/app/events?id=:event_id` | get single event by id |
+| **GET** | `/api/v3/app/events?type=latest&limit=5&page=1` | get latest events with pagination |
+| **POST** | `/api/v3/app/events` | create new event |
+| **PUT** | `/api/v3/app/events/:id` | update event |
+| **DELETE** | `/api/v3/app/events/:id` | delete event |
+
+
+
+
+
 
 
 
